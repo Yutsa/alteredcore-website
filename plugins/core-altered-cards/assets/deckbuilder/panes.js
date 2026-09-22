@@ -1,5 +1,5 @@
 /* Deckbuilder — panes.js
- * Stats, grid/list view, starting-hand pane.
+ * Stats, grid/list view, starting-hand pane (wizard state lives in hero-picker.js).
  * Loaded as a classic script (shared global scope with sibling modules).
  */
     function renderStatsPane() {
@@ -204,34 +204,3 @@
         window.handDeckSize   = cards.reduce(function(s, c) { return s + c.qty; }, 0);
         if (window.HandOdds) window.HandOdds.refresh();
     }
-
-    // hero modal
-    //
-    // The grid holds one tile per hero identity (heroStableKey), not one per
-    // printing: a hero reprinted in several sets or as a promo used to appear as
-    // many unlabelled tiles scattered through the API's own ordering. Which
-    // printing lands on the deck is picked deterministically — format rules key
-    // off the stable key, so it changes nothing but the image.
-    var _heroPick = null; // { key, name, faction, bgaState, prints: [{ref}], ref }
-    // Printings of the hero on the deck, kept so per-format BGA availability can be
-    // recomputed without reopening the picker.
-    var _heroPrints = null;
-
-    var elHeroConfirm = document.getElementById('db-hero-confirm');
-    var elHeroAltArts = document.getElementById('db-hero-altarts-toggle');
-
-    // True while the creation dialog is up, from page load until the deck is
-    // created or abandoned. The picker can open on top of it as a sub-dialog.
-    var _wizardOpen = false;
-
-    // Closing the picker returns to whatever opened it — the creation dialog, or
-    // the builder.
-    window.dbHeroClose = function() {
-        document.getElementById('db-hero-modal').style.display = 'none';
-        if (_wizardOpen) elNewModal.style.display = 'flex';
-        else             dbLockScroll(false);
-    };
-    window.dbHeroBackdrop = function() { dbHeroClose(); };
-
-    // Giving up on creation: clear the dirty flag first, otherwise the unsaved
-    // guard pops a browser confirm on a deck that was never meant to exist.
