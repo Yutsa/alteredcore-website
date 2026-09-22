@@ -9,6 +9,7 @@
     <div class="alert alert-danger"><i class="fa-solid fa-circle-exclamation me-2"></i><?= h($txt['err_token']) ?></div>
     <?php else: ?>
 
+    <!-- Mobile bottom navbar -->
     <div class="db-mobile-tabs">
         <button type="button" class="db-mobile-tab active" data-tab="search">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -30,8 +31,10 @@
 
     <div class="db-layout">
 
+        <!-- LEFT: card browser + deck view -->
         <div class="db-panel-left db-tab-pane active" id="db-tab-search">
 
+            <!-- Sub-tabs: Card Search | View Deck -->
             <div class="ac-tab-toggle d-none d-lg-flex">
                 <button type="button" class="btn-toggle db-search-tab active" data-pane="search">
                     <i class="fa-solid fa-magnifying-glass me-1"></i><?= h($txt['tab_search']) ?>
@@ -44,6 +47,7 @@
                 </button>
             </div>
 
+            <!-- Card search pane -->
             <div id="db-search-pane-search">
                 <?php
                 $_cs = [
@@ -86,10 +90,11 @@
                     'favorites_mode'     => $_favMode,
                     'base_url'           => BASE_URL,
                 ];
-                include __DIR__ . '/../includes/card-search.php';
+                include __DIR__ . '/../card-search.php';
                 ?>
             </div>
 
+            <!-- Deck view pane -->
             <div id="db-search-pane-view" class="db-search-pane" style="display:none">
                 <div class="d-flex justify-content-end mb-2">
                     <div class="btn-group btn-group-sm">
@@ -104,13 +109,15 @@
                 <div id="db-deckgrid-content"></div>
             </div>
 
+            <!-- Starting-hand stats (main content, full width) -->
             <div id="db-search-pane-hand" class="db-search-pane" style="display:none">
-                <?php include __DIR__ . '/_starting-hand-sandbox.php'; ?>
-                <?php include __DIR__ . '/_starting-hand-stats.php'; ?>
+                <?php include __DIR__ . '/../../pages/_starting-hand-sandbox.php'; ?>
+                <?php include __DIR__ . '/../../pages/_starting-hand-stats.php'; ?>
             </div>
 
         </div>
 
+        <!-- RIGHT: deck editor -->
         <div class="db-panel-right db-tab-pane" id="db-tab-deck">
             <?php if ($apiError): ?>
             <div class="text-center py-4 mb-2">
@@ -130,6 +137,7 @@
             <?php endif; ?>
             <div class="card-altered p-3">
 
+                <!-- Hero -->
                 <div class="mb-3">
                     <div class="filter-label mb-1"><?= h($txt['hero_label']) ?></div>
                     <div id="db-hero-banner" class="hero-banner" onclick="dbSelectHero()">
@@ -138,6 +146,7 @@
                     </div>
                 </div>
 
+                <!-- Deck meta -->
                 <div class="mb-2">
                     <label class="filter-label mb-1"><?= h($txt['deck_name']) ?></label>
                     <input type="text" id="db-deck-name" class="form-control form-control-sm" placeholder="<?= h($txt['deck_name']) ?>">
@@ -151,6 +160,8 @@
                         <label class="filter-label mb-1"><?= h($txt['format']) ?></label>
                         <select id="db-deck-format" class="form-select form-select-sm">
                             <?php foreach ($formatsData as $fmtKey => $fmtData): ?>
+                            <?php // Hidden formats (e.g. BGA tester format) are rendered but stay
+                                  // out of the dropdown until the tester flag is set client-side. ?>
                             <option value="<?= h($fmtKey) ?>"<?= !empty($fmtData['hidden']) ? ' data-hidden="1" hidden' : '' ?>><?= h($fmtData[$uiLang] ?? $fmtData['en']) ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -169,10 +180,12 @@
                     <?php endif; ?>
                 </div>
 
+                <!-- Card list -->
                 <div class="d-flex align-items-center justify-content-between mb-1 mt-3">
                     <span class="filter-label"><?= h($txt['cards_in_deck']) ?></span>
                     <span id="db-card-count" class="db-card-count">0 <?= h($txt['deck_cards']) ?></span>
                 </div>
+                <!-- Rarity gems row -->
                 <div id="db-rarity-row" class="d-flex gap-2 mb-2 db-rarity-row">
                     <?php foreach (array_values($rarityGems) as $r):
                         $_gc = $_rarityGemColors[$r] ?? '';
@@ -183,8 +196,10 @@
                     </span>
                     <?php endforeach; ?>
                 </div>
+                <!-- Validation status -->
                 <div id="db-validation" class="mb-2"></div>
 
+                <!-- Tabs: Cards / Stats -->
                 <div class="db-tabs-row">
                     <button type="button" class="db-deck-tab active" data-pane="cards"><?= h($txt['tab_cards']) ?></button>
                     <button type="button" class="db-deck-tab" data-pane="stats"><?= h($txt['tab_stats']) ?></button>
@@ -192,7 +207,9 @@
                 <div id="db-deck-pane-cards">
                     <div id="db-card-list" class="mb-3"></div>
                 </div>
-                <div id="db-deck-pane-stats" class="db-stats-pane" style="display:none"></div>
+                <div id="db-deck-pane-stats" class="db-stats-pane" style="display:none">
+                    <!-- Stats content populated by renderStatsPane() -->
+                </div>
 
                 <?php if ($_ownMode && !$_altArtGlobalMode): ?>
                 <button type="button" id="db-choose-tokens-btn" class="btn btn-outline-secondary btn-sm w-100 mb-2">
@@ -200,6 +217,7 @@
                 </button>
                 <?php endif; ?>
 
+                <!-- Save button -->
                 <div id="db-save-ok" class="alert alert-success p-2 mb-2 small" style="display:none"></div>
                 <div id="db-save-error" class="alert alert-danger p-2 mb-2 small" style="display:none">
                     <div class="d-flex align-items-start gap-2">
@@ -240,11 +258,14 @@
     <?php endif; ?>
 </div>
 
+<!-- Card lightbox (deck list) -->
 <div id="db-card-modal" class="ac-lightbox-overlay" style="display:none">
     <div id="db-card-modal-inner" class="ac-lightbox-inner" onclick="event.stopPropagation()"></div>
 </div>
 
-<?php $_heroDefaultFaction = isset($factionsData['AX']) ? 'AX' : (string)array_key_first($factionsData); ?>
+<!-- Hero selector modal -->
+<?php // Heroes are browsed one faction at a time — Axiom opens by default.
+      $_heroDefaultFaction = isset($factionsData['AX']) ? 'AX' : (string)array_key_first($factionsData); ?>
 <div id="db-hero-modal" class="ac-lightbox-overlay" style="display:none;overflow:hidden;z-index:9998" onclick="if(event.target===this)dbHeroBackdrop()">
     <div class="db-hero-panel" onclick="event.stopPropagation()">
         <button onclick="dbHeroClose()" class="db-hero-close-btn">×</button>
@@ -271,7 +292,9 @@
         <?php endif; ?>
         </div>
         <div id="db-hero-loading" class="db-hero-loading"><?= h($txt['loading']) ?></div>
-        <div id="db-hero-grid"></div>
+        <div id="db-hero-grid">
+            <!-- populated by JS -->
+        </div>
         <div class="db-hero-footer">
             <button type="button" id="db-hero-confirm" class="btn btn-primary-altered btn-sm" disabled>
                 <?= h($txt['hero_confirm']) ?>
@@ -280,8 +303,15 @@
     </div>
 </div>
 
+<!-- New deck creation dialog -->
 <?php
+// Board Game Arena runs its competitive "Arena" queue on one format at a time, and
+// which one changes on BGA's schedule. The pointer lives in altered.json so it can
+// be corrected from the admin JSON editor without a deploy.
 $_bgaArenaFormat = (string)(loadAlteredData('bgaArena')['format'] ?? '');
+
+// One-line format descriptors, derived from the rules themselves so they cannot
+// drift from altered.json.
 $_fmtDesc = [];
 foreach ($formatsData as $_fk => $_fv) {
     if (!empty($_fv['hidden'])) continue;
@@ -293,6 +323,12 @@ foreach ($formatsData as $_fk => $_fv) {
     if (count($_bits) === 1 && ($_fv['maxCopiesPerRef'] ?? null) === null) $_bits[] = $txt['fmt_free'];
     $_fmtDesc[$_fk] = implode(' · ', $_bits);
 }
+
+// Display order: the Arena format, then the other BGA formats, then the free-for-all
+// ones, then the rest — each group alphabetical on the displayed name. Puts what most
+// players are looking for at the top instead of the reference data's own order.
+// A format with no card restrictions at all (Sandbox) sits last among the BGA ones:
+// it is a scratchpad, not something anyone plays competitively.
 $_fmtKeys = array_keys($_fmtDesc);
 usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat) {
     $rank = function ($k) use ($formatsData, $_bgaArenaFormat) {
@@ -309,12 +345,16 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
     return strcasecmp($label($a), $label($b));
 });
 ?>
+<!-- No backdrop dismissal: this step holds typed input, and leaving means
+     abandoning the deck. The × and Cancel are the deliberate exits. -->
 <div id="db-new-modal" class="ac-lightbox-overlay" style="display:none;overflow:hidden;z-index:9998">
     <div class="db-hero-panel db-new-panel" onclick="event.stopPropagation()">
         <button onclick="dbNewCancel()" class="db-hero-close-btn">×</button>
         <h3 class="db-hero-title"><?= h($txt['new_deck']) ?></h3>
 
         <div class="db-new-body">
+            <!-- Hero: a field of this form, opening the picker as a sub-dialog.
+                 Starts empty — nothing is preselected. -->
             <div class="filter-label mb-1"><?= h($txt['hero_label']) ?> <span class="db-new-req">*</span></div>
             <button type="button" id="db-new-hero" class="db-new-hero empty" onclick="dbNewPickHero()">
                 <img id="db-new-hero-img" alt="" style="display:none">
@@ -327,9 +367,11 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
                 <span class="db-new-hero-action" id="db-new-hero-action"><?= h($txt['choose_hero']) ?></span>
             </button>
 
+            <!-- Name -->
             <label class="filter-label mb-1" for="db-new-name"><?= h($txt['deck_name']) ?> <span class="db-new-req">*</span></label>
             <input type="text" id="db-new-name" class="form-control form-control-sm mb-3" maxlength="120">
 
+            <!-- Format -->
             <div class="filter-label mb-1"><?= h($txt['format']) ?> <span class="db-new-req">*</span></div>
             <div class="db-new-formats mb-3">
                 <?php foreach ($_fmtKeys as $fmtKey): $fmtData = $formatsData[$fmtKey]; ?>
@@ -338,6 +380,7 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
                     <span class="db-new-format-txt">
                         <span class="db-new-format-head">
                             <span class="db-new-format-name"><?= h($fmtData[$uiLang] ?? $fmtData['en']) ?></span>
+                            <?php // Text and colour set by JS: the verdict also depends on the hero. ?>
                             <span class="db-bga-pill" data-fmt-key="<?= h($fmtKey) ?>" data-fmt-bga="<?= !empty($fmtData['bgalegal']) ? '1' : '0' ?>"
                                   data-fmt-arena="<?= ($_bgaArenaFormat !== '' && $fmtKey === $_bgaArenaFormat) ? '1' : '0' ?>"></span>
                             <?php if ($_bgaArenaFormat !== '' && $fmtKey === $_bgaArenaFormat): ?>
@@ -353,6 +396,7 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
             </div>
 
             <?php if (!$isGuest): ?>
+            <!-- Visibility -->
             <div class="filter-label mb-1"><?= h($txt['visibility']) ?></div>
             <div class="db-new-vis mb-1">
                 <button type="button" class="db-new-vis-btn active" data-public="0">
@@ -365,6 +409,7 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
             <p class="db-new-note mb-3" id="db-new-vis-note"><?= h($txt['wizard_vis_priv']) ?></p>
             <?php endif; ?>
 
+            <!-- Description, folded away: nobody writes one before building the deck -->
             <button type="button" id="db-new-desc-toggle" class="db-new-desc-toggle" onclick="dbNewToggleDesc()">
                 <i class="fa-solid fa-plus"></i><?= h($txt['wizard_desc_add']) ?>
             </button>
@@ -385,6 +430,7 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
     </div>
 </div>
 
+<!-- Validation rules modal -->
 <div class="modal fade" id="db-rules-modal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:380px">
         <div class="modal-content db-modal-content">
@@ -397,6 +443,7 @@ usort($_fmtKeys, function ($a, $b) use ($formatsData, $uiLang, $_bgaArenaFormat)
     </div>
 </div>
 
+<!-- Unsaved changes modal -->
 <div class="modal fade" id="db-unsaved-modal" tabindex="-1" aria-labelledby="db-unsaved-title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width:420px">
         <div class="modal-content db-modal-content">
