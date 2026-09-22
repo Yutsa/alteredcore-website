@@ -13,8 +13,11 @@ require_once __DIR__ . '/../includes/deckbuilder/config-js.php';
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/alt-art.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/validation.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/panes.js"></script>
+<script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/hero-picker.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/wizard.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/save.js"></script>
+<script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/token-arts.js"></script>
+<script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/lightbox.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/ui.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.bootstrap5.min.css">

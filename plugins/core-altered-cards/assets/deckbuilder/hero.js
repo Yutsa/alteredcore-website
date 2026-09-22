@@ -94,8 +94,3 @@
             autoApplyAltArtPreferences();
         }
     }
-    // Alt-art: resolve a set of card References to their multi-art family/options via
-    // the deck-alt-arts papi proxy (combines /api/alt-arts/resolve-references and
-    // /api/alt-arts/options on OWNERSHIP_API_URL). Returns a promise of
-    // {groups:{ref:{familyId,faction,rarity}}, options:{"fam:faction:rarity":{options,slots}}},
-    // or null on any failure/when the feature isn't configured for this site.
