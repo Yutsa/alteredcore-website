@@ -114,6 +114,11 @@
 
     var GUEST_DECK_KEY = 'alteredcore_guest_deck';
 
+    // Shared with the new-deck wizard / hero picker (loaded later).
+    var _wizardOpen = false;
+    var _heroPick = null;
+    var _heroPrints = null;
+
     var rendererLoaded  = false;
     var heroCurrPage    = 1;
     var heroCurrFaction = '';
@@ -146,4 +151,3 @@
             });
         }
     }
-
