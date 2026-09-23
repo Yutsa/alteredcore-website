@@ -115,7 +115,6 @@ var AlteredDB = {
         'strip_unsaved'     => $txt['strip_unsaved'],
         'strip_saved'       => $txt['strip_saved'],
         'strip_save_failed' => $txt['strip_save_failed'],
-        'strip_show_types'  => $txt['strip_show_types'],
         'strip_max'         => $txt['strip_max'],
         'toast_undo'        => $txt['toast_undo'],
         'any_trigger'       => $txt['any_trigger'],

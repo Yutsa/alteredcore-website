@@ -33,14 +33,12 @@
     border:1px solid var(--panel-border, var(--sand-200)); border-radius:14px; background:var(--card-bg, var(--panel-bg, #fff));
     box-shadow:0 6px 20px rgba(15,23,42,.08); }
 .db-ss-strip-main { display:flex; align-items:center; gap:12px; min-width:0; }
-.db-ss-strip-stats { display:flex; align-items:center; gap:6px; min-width:0; }
 .db-ss-strip-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-width:0; flex:1; }
 .db-ss-stat { display:inline-flex; align-items:center; gap:4px; height:24px; padding:2px 8px; border-radius:12px; font-size:.72rem; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap;
     background:var(--neutral-100, #f3f4f6); color:var(--neutral-600); }
 .db-ss-stat img { width:14px; height:14px; flex-shrink:0; }
 .db-ss-stat.over { background:#fee2e2; color:#991b1b; font-weight:700; }
 .db-ss-stat.at { background:#fef3c7; color:#92400e; }
-.db-ss-types-toggle { display:none; align-items:center; justify-content:center; width:28px; height:24px; padding:0; flex-shrink:0; border:none; border-radius:8px; background:var(--neutral-100, #f3f4f6); color:var(--neutral-500); }
 .db-ss-strip-hero { width:40px; height:40px; border-radius:10px; overflow:hidden; flex-shrink:0; display:flex; align-items:center; justify-content:center; background:var(--neutral-100); color:var(--neutral-400); }
 .db-ss-strip-hero img { width:100%; height:100%; object-fit:cover; object-position:50% 22%; transform:scale(1.5); }
 .db-ss-strip-id { display:flex; flex-direction:column; min-width:0; flex:0 1 220px; }
@@ -85,11 +83,6 @@ button.db-ss-chip { cursor:pointer; }
     .db-ss-chip span { display:none; }
     .db-ss-chip { padding:6px 9px; }
     .db-ss-strip-chips { flex-wrap:nowrap; overflow:hidden; }
-    .db-ss-stat-type { display:none; }
-    .db-ss-strip.is-types-open .db-ss-strip-chips { flex-wrap:wrap; overflow:visible; }
-    .db-ss-strip.is-types-open .db-ss-stat-type { display:inline-flex; }
-    .db-ss-types-toggle { display:inline-flex; }
-    .db-ss-types-toggle[hidden] { display:none; }
     .db-card-btn-group .btn { min-width:40px; min-height:40px; }
     .deck-list-qty button { width:34px; height:34px; }
 }
