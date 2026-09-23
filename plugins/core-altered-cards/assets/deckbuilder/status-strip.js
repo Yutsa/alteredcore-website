@@ -128,7 +128,7 @@
     }
 
     // The sticky sidebar sits below the theme's sticky header and the strip, and both change height
-    // (breakpoints, wrapped stat chips, expanded types).
+    // (breakpoints, wrapped rarity chips).
     function syncStickyOffsets() {
         var h = document.querySelector('.site-header');
         var px = h && getComputedStyle(h).position === 'sticky' ? h.offsetHeight : 0;
