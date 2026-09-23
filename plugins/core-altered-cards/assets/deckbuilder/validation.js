@@ -259,6 +259,7 @@
             group.forEach(function(c) {
                 var item = document.createElement('div');
                 item.className = 'deck-list-item';
+                item.dataset.ref = c.ref;
                 var rGem    = {C:'C',R:'R',U:'U',E:'E'}[c.rarity] || 'C';
                 var faction = c.faction || null;
                 var dName   = typeof c.name === 'object' ? (c.name[AlteredDB.lang] || c.name.en || '') : (c.name || '');
@@ -291,6 +292,7 @@
         renderStatsPane();
         renderGridPane();
         renderHandPane();
+        document.dispatchEvent(new CustomEvent('db:deck-updated'));
     }
 
     function openValidationModal(results, fmtKey) {
