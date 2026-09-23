@@ -402,6 +402,9 @@ const context = await chromium.launchPersistentContext(PROFILE, {
   slowMo: SLOWMO,
   viewport: { width: 1400, height: 900 },
 });
+// The site's own #cookieModal (static backdrop) blocks every click until consent is stored.
+const siteHost = new URL(SITE).hostname;
+await context.addCookies([{ name: 'alteredcore_consent', value: '1', domain: siteHost, path: '/' }]);
 const page = context.pages()[0] || await context.newPage();
 
 try {
