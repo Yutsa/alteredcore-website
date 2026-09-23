@@ -230,17 +230,6 @@
             }
             return gem;
         }
-        var typeCounts = {};
-        Object.keys(deck.cards).forEach(function(ref) {
-            var c = deck.cards[ref];
-            var t = c.type || 'OTHER';
-            typeCounts[t] = (typeCounts[t] || 0) + c.qty;
-        });
-        var typeSummary = [];
-        TYPE_ORDER.forEach(function(key) {
-            var n = typeCounts[key] || 0;
-            if (n > 0) typeSummary.push({ key: key, label: (AlteredDB.txt.types || {})[key] || key, count: n });
-        });
         deck.summary = {
             total: total,
             min: rules.minCards || 0,
@@ -252,7 +241,6 @@
                 { gem: 'E', label: rarityLabel('E'), count: gems.E || 0, limit: nn(rules.maxExalted) },
                 { gem: 'U', label: rarityLabel('U'), count: gems.U || 0, limit: nn(uLimit) },
             ],
-            types: typeSummary,
         };
 
         if (!deck._valid) {

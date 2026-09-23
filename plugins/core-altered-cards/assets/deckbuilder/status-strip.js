@@ -76,10 +76,7 @@
             + '<span class="db-ss-chip db-ss-strip-save" data-state="idle"></span>'
             + '<button type="button" class="btn btn-sm btn-primary-altered db-ss-strip-savebtn"><i class="fa-solid fa-floppy-disk"></i><span class="d-none d-md-inline ms-1">' + escHtml(txt.save_btn || 'Save') + '</span></button>'
             + '</div>'
-            + '<div class="db-ss-strip-stats">'
-            + '<div class="db-ss-strip-chips"></div>'
-            + '<button type="button" class="db-ss-types-toggle" aria-expanded="false"><i class="fa-solid fa-chevron-down"></i></button>'
-            + '</div>';
+            + '<div class="db-ss-strip-chips"></div>';
         var layout = document.querySelector('.db-layout');
         layout.parentNode.insertBefore(strip, layout);
         strip.querySelector('.db-ss-strip-valid').addEventListener('click', function() {
@@ -87,13 +84,6 @@
             if (badge) badge.click();
         });
         strip.querySelector('.db-ss-strip-savebtn').addEventListener('click', function() { elSaveBtn.click(); });
-        var toggle = strip.querySelector('.db-ss-types-toggle');
-        toggle.setAttribute('aria-label', txt.strip_show_types);
-        toggle.addEventListener('click', function() {
-            var open = strip.classList.toggle('is-types-open');
-            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-            toggle.querySelector('i').className = 'fa-solid ' + (open ? 'fa-chevron-up' : 'fa-chevron-down');
-        });
         renderSaveState('idle');
     }
     function renderStrip(s) {
@@ -126,13 +116,6 @@
                 + '<span>' + (r.limit !== null ? r.count + '/' + r.limit : r.count) + '</span>';
             host.appendChild(chip);
         });
-        (s.types || []).forEach(function(t) {
-            var chip = el('span', 'db-ss-stat db-ss-stat-type');
-            chip.textContent = t.label + ' ' + t.count;
-            host.appendChild(chip);
-        });
-        var toggle = strip.querySelector('.db-ss-types-toggle');
-        toggle.hidden = !(s.types && s.types.length);
     }
     var saveFadeTimer;
     function renderSaveState(state) {
