@@ -75,7 +75,7 @@ button.db-ss-chip { cursor:pointer; }
     .db-ss-strip.in-panel .db-ss-chip span { display:none; }
     .db-ss-strip.in-panel .db-ss-chip { padding:6px 9px; }
     .db-ss-strip.in-panel .db-ss-strip-save { margin-left:auto; }
-    .db-ss-strip.in-panel .db-ss-strip-savebtn span { display:none; }
+    .db-ss-strip.in-panel .db-ss-strip-savebtn span { display:none !important; }
     .db-ss-strip.in-panel .db-ss-strip-chips { flex-wrap:wrap; }
 }
 @media (min-width:768px) and (max-width:991px) {
