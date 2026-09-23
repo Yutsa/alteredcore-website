@@ -7,6 +7,7 @@ require_once __DIR__ . '/../includes/deckbuilder/bootstrap.php';
 require_once __DIR__ . '/../includes/deckbuilder/markup.php';
 require_once __DIR__ . '/../includes/deckbuilder/config-js.php';
 ?>
+<link rel="stylesheet" href="<?= h($pluginAssetsUrl) ?>/deckbuilder/redesign.css">
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/state.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/cards.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/hero.js"></script>
@@ -19,6 +20,7 @@ require_once __DIR__ . '/../includes/deckbuilder/config-js.php';
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/token-arts.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/lightbox.js"></script>
 <script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/ui.js"></script>
+<script src="<?= h($pluginAssetsUrl) ?>/deckbuilder/redesign.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.bootstrap5.min.css">
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
