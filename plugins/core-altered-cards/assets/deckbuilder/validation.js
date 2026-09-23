@@ -220,6 +220,41 @@
 
         deck._valid = ruleResults.every(function(r) { return r.ok; });
 
+        function nn(v) { return v === undefined ? null : v; }
+        function rarityLabel(gem) {
+            var rarities = AlteredDB.rarities || {};
+            var keys = Object.keys(rarities);
+            for (var i = 0; i < keys.length; i++) {
+                var entry = rarities[keys[i]];
+                if (entry && entry.gem === gem) return entry[AlteredDB.lang] || entry.en || gem;
+            }
+            return gem;
+        }
+        var typeCounts = {};
+        Object.keys(deck.cards).forEach(function(ref) {
+            var c = deck.cards[ref];
+            var t = c.type || 'OTHER';
+            typeCounts[t] = (typeCounts[t] || 0) + c.qty;
+        });
+        var typeSummary = [];
+        TYPE_ORDER.forEach(function(key) {
+            var n = typeCounts[key] || 0;
+            if (n > 0) typeSummary.push({ key: key, label: (AlteredDB.txt.types || {})[key] || key, count: n });
+        });
+        deck.summary = {
+            total: total,
+            min: rules.minCards || 0,
+            max: nn(rules.maxCards),
+            valid: !!deck._valid,
+            rarities: [
+                { gem: 'C', label: rarityLabel('C'), count: gems.C || 0, limit: null },
+                { gem: 'R', label: rarityLabel('R'), count: gems.R || 0, limit: nn(rules.maxRare) },
+                { gem: 'E', label: rarityLabel('E'), count: gems.E || 0, limit: nn(rules.maxExalted) },
+                { gem: 'U', label: rarityLabel('U'), count: gems.U || 0, limit: nn(uLimit) },
+            ],
+            types: typeSummary,
+        };
+
         if (!deck._valid) {
             var badge = document.createElement('span');
             badge.className = 'badge';
@@ -292,7 +327,7 @@
         renderStatsPane();
         renderGridPane();
         renderHandPane();
-        document.dispatchEvent(new CustomEvent('db:deck-updated'));
+        document.dispatchEvent(new CustomEvent('db:deck-updated', { detail: deck.summary }));
     }
 
     function openValidationModal(results, fmtKey) {
